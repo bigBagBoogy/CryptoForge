@@ -1,5 +1,5 @@
 // src/App.jsx
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import './App.css'
 import { Editor } from '@monaco-editor/react'
 
@@ -17,17 +17,27 @@ const files = {
 }
 function App() {
   const [fileName, setFileName] = useState('1-1.sol')
+  const editorRef = useRef(null)
   const file = files[fileName]
 // files[fileName] -> file -> path, defaultLanguage, dafaultValue
-
+function handleEditorDidMount(editor, monaco) {
+  editorRef.current = editor
+}
+function getEditorValue() {
+  alert(editorRef.current.getValue()) 
+}
 
 return (
- <> 
+ <>
+ <button onClick={() => setFileName('1-1.sol')}>1-1.sol</button> 
+ <button onClick={() => setFileName('1-2.sol')}>1-2.sol</button>
+ <button onClick={() => getEditorValue()}>getEditorValue</button>
   <div className='App' id='editor'>
     <Editor
       height="100vh"
       width="100%" 
       theme='vs-dark'
+      onMount={handleEditorDidMount}
       path={file.name}
       defaultLanguage={file.language}
       defaultValue={file.value} />

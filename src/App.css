@@ -2,7 +2,22 @@ body {
   background-color: darkslategray;
   margin: 0;
   padding: 0;
+  position: relative;
 }
+
+button {
+  background-color: rgb(80, 40, 155);
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+
 #editor {
-  margin-left: 50%;
+  position: absolute;
+  right: 0%;  
+  top: 0;    /* Align to the top */
+  width: 50vw; /* 50% of the viewport width */
+  height: 100vh; /* 100% of the viewport height */
 }
