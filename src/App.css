@@ -1,4 +1,8 @@
 body {
+  background-color: darkslategray;
   margin: 0;
   padding: 0;
+}
+#editor {
+  margin-left: 50%;
 }
