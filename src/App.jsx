@@ -1,45 +1,62 @@
-// src/App.jsx
-import { useState, useRef } from 'react'
-import './App.css'
-import { Editor } from '@monaco-editor/react'
+// App.jsx
+import React, { useState, useRef, useEffect } from 'react';
+import './App.css';
+import { Editor } from '@monaco-editor/react';
+import { LessonBuilder } from './LessonBuilder';
 
-import file1 from './files/1-1.json'
-import file2 from './files/1-2.json'
-
-const files = {
-  '1-1.json': file1,
-  '1-2.json': file2,
-  
-}
 function App() {
-  const [fileName, setFileName] = useState('1-1.json')
-  const editorRef = useRef(null)
-  const file = files[fileName]
-// files[fileName] -> file -> path, defaultLanguage, dafaultValue
-function handleEditorDidMount(editor, monaco) {
-  editorRef.current = editor
-}
-function getEditorValue() {
-  alert(editorRef.current.getValue()) 
+  const [lessonId, setLessonId] = useState('1-1'); // Initial lesson ID
+  const [file, setFile] = useState({
+    id: 'default',
+    value: '',
+  });
+
+  const editorRef = useRef(null);
+
+  useEffect(() => {
+    console.log("File state after update:", file);
+  }, [file]);
+
+  function handleEditorDidMount(editor, monaco) {
+    editorRef.current = editor;
+  }
+
+  function getEditorValue() {
+    alert(editorRef.current.getValue());
+  }
+
+  function handleLessonData(lessonData) {
+    console.log("Received lesson data:", lessonData);
+
+    // Update the file state with the lesson data
+    setFile(lessonData);
+  }
+
+  return (
+    <>
+      <button onClick={() => setLessonId('1-1')}>1-1</button>
+      <button onClick={() => setLessonId('1-2')}>1-2</button>
+      <button onClick={() => setLessonId('1-3')}>1-3</button>
+
+      <button onClick={() => getEditorValue()}>getEditorValue</button>
+
+      {/* Render the Editor component with the updated file state */}
+      <div className='App' id='editor'>
+        <Editor
+          height='100vh'
+          width='100%'
+          theme='vs-dark'
+          onMount={handleEditorDidMount}
+          path={`file:///lesson-${file.id}.sol`}   // = virtual path  
+          defaultLanguage="sol"
+          defaultValue={file.value}
+        />
+      </div>
+
+      {/* Render the LessonBuilder component and pass the lesson ID and handler function */}
+      <LessonBuilder lessonId={lessonId} setLessonData={handleLessonData} />
+    </>
+  );
 }
 
-return (
- <>
- <button onClick={() => setFileName('1-1.json')}>1-1</button> 
- <button onClick={() => setFileName('1-2.json')}>1-2</button>
- <button onClick={() => getEditorValue()}>getEditorValue</button>
-  <div className='App' id='editor'>
-    <Editor
-      height="100vh"
-      width="100%" 
-      theme='vs-dark'
-      onMount={handleEditorDidMount}
-      path={file.name}
-      defaultLanguage={file.language}
-      defaultValue={file.value} />
-  </div>       
- </>
-  )
-}
-
-export default App
+export default App;
