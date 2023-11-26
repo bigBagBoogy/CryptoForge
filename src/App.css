@@ -22,3 +22,15 @@ button {
   width: 50vw; /* 50% of the viewport width */
   height: 100vh; /* 100% of the viewport height */
 }
+/* LessonTextBox.css */
+.lesson-textbox {
+  text-align: left;
+  max-width: 50vw;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+p {
+  color: white;
+}

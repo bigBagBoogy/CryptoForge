@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 import { Editor } from '@monaco-editor/react';
 import { LessonBuilder } from './LessonBuilder';
+import { LessonTextBox } from './LessonTextBox';
 
 function App() {
   const [lessonId, setLessonId] = useState('1-1'); // Initial lesson ID
@@ -39,6 +40,7 @@ function App() {
       <button onClick={() => setLessonId('1-3')}>1-3</button>
 
       <button onClick={() => getEditorValue()}>getEditorValue</button>
+      <LessonTextBox />
 
       {/* Render the Editor component with the updated file state */}
       <div className='App' id='editor'>
