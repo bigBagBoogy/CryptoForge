@@ -24,7 +24,7 @@ const LessonTextBox = ({ lessonContent }) => {
     <div className="lesson-textbox">
       <ReactMarkdown components={components}>
         {`
-Starting with the absolute basics:
+## Starting with the absolute basics:
 
 \`\`\`solidity
 contract HelloWorld {

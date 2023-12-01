@@ -1,6 +1,7 @@
-// LessonBuilder.jsx
+// src/LessonMarkdown.jsx
 import React, { useState, useEffect } from 'react';
-const LessonBuilder = ({ lessonId, setLessonData }) => {
+
+const getMarkdown = ({ lessonId, setLessonData }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [lessonData, setLocalLessonData] = useState({ id: '', value: '' });
@@ -10,7 +11,7 @@ const LessonBuilder = ({ lessonId, setLessonData }) => {
         setLoading(true);
   
         try {
-          const backendEndpoint = `http://localhost:3000/lessonCode/${lessonId}`;
+          const backendEndpoint = `http://localhost:3000/lessonText/${lessonId}`;
           const response = await fetch(backendEndpoint);
           const data = await response.json();
           // Ensure that lessonData has the correct properties
@@ -36,15 +37,4 @@ const LessonBuilder = ({ lessonId, setLessonData }) => {
         setLessonData(lessonData);
       }
     }, [lessonData, setLessonData]);
-  
-    return (
-      <div>
-        {loading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-        {/* Add JSX components to display lesson data if needed */}
-      </div>
-    );
-  };
-  
-  export { LessonBuilder };
   
