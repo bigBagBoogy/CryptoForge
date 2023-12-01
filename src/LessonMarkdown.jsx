@@ -1,40 +1,25 @@
-// src/LessonMarkdown.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import useLessonMarkdown from './useLessonMarkdown';
 
-const getMarkdown = ({ lessonId, setLessonData }) => {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [lessonData, setLocalLessonData] = useState({ id: '', value: '' });
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        setLoading(true);
-  
-        try {
-          const backendEndpoint = `http://localhost:3000/lessonText/${lessonId}`;
-          const response = await fetch(backendEndpoint);
-          const data = await response.json();
-          // Ensure that lessonData has the correct properties
-          const lessonData = { id: lessonId, value: data.solidityCode };
-          console.log(lessonData); //  I now have access to the lesson data here***            
+const LessonMarkdown = ({ setLessonData }) => {
+  const lessonId = '1-1'; // Set the default lesson ID or get it from props if needed
+  const { loading, error, lessonData } = useLessonMarkdown(lessonId);
 
+  useEffect(() => {
+    // Update the parent component when lessonData changes
+    console.log("LessonData inside useEffect:", lessonData);
+    setLessonData(lessonData);
+  }, [lessonData, setLessonData]);
   
-          setLocalLessonData(lessonData);
-          setError(null);
-        } catch (error) {
-          setError('Error fetching lesson data');
-        } finally {
-          setLoading(false);
-        }
-      };
-  
-      fetchData();
-    }, [lessonId]);
-  
-    useEffect(() => {
-      // Update the parent component only if there's a change in lessonData
-      if (lessonData.id !== setLessonData.id || lessonData.value !== setLessonData.value) {
-        setLessonData(lessonData);
-      }
-    }, [lessonData, setLessonData]);
-  
+
+  return (
+    <div>
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {lessonData.value !== undefined && <ReactMarkdown>{lessonData.value}</ReactMarkdown>}
+    </div>
+  );
+};
+
+export default LessonMarkdown;

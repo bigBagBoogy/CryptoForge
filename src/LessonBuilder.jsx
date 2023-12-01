@@ -15,13 +15,14 @@ const LessonBuilder = ({ lessonId, setLessonData }) => {
           const data = await response.json();
           // Ensure that lessonData has the correct properties
           const lessonData = { id: lessonId, value: data.solidityCode };
-          console.log(lessonData); //  I now have access to the lesson data here***            
+          // console.log(lessonData); //  I now have access to the lesson data here***            
 
   
           setLocalLessonData(lessonData);
           setError(null);
         } catch (error) {
-          setError('Error fetching lesson data');
+          console.error('Error fetching lesson data:', error.message);
+          setError('Error fetching lesson data');        
         } finally {
           setLoading(false);
         }
