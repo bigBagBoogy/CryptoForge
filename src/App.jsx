@@ -28,7 +28,8 @@ function App() {
   }
 
   function getEditorValue() {
-    alert(editorRef.current.getValue());
+    const editor = editorRef.current.getValue();
+    alert(editor);
   }
 
   function handleLessonCode(solidityData) {

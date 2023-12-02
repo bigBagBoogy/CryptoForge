@@ -40,10 +40,11 @@ p {
 
 .lesson-textbox {
   text-align: left;
-  max-width: 48vw;
+  max-width: 47vw;
   max-height: 400px;
   overflow-y: auto;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
+  border-radius: 4px;
   padding: 10px;
 }
 
