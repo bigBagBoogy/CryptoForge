@@ -4,7 +4,7 @@ import './App.css';
 import { Editor } from '@monaco-editor/react';
 import { LessonBuilder } from './LessonBuilder';
 import LessonMarkdown from './LessonMarkdown';
-
+import Navbar from './Navbar';
 
 function App() {
   const [lessonId, setLessonId] = useState('1-1'); // Initial lesson ID
@@ -16,7 +16,7 @@ function App() {
     id: 'default',
     value: '',
   });
-
+  const totalLessons = 3;
   const editorRef = useRef(null);
 
   // useEffect(() => {
@@ -32,25 +32,20 @@ function App() {
   }
 
   function handleLessonCode(solidityData) {
-    // console.log("Received lesson code:", solidityData);
-  
     // Update the file state with the solidity data
     setCode(solidityData);
   }
-  
   // Function to handle lesson text data
   function handleLessonText(markdownData) {
-    console.log("Received lesson text:", markdownData);
-  
     // Update the file state with the markdown data
     setText(markdownData);
   }
 
   return (
     <>
-      <button onClick={() => setLessonId('1-1')}>1-1</button>
-      <button onClick={() => setLessonId('1-2')}>1-2</button>
-      <button onClick={() => setLessonId('1-3')}>1-3</button>
+      {/* Use the Navbar component and pass the setLessonId function */}
+      <Navbar lessonId={lessonId} setLessonId={setLessonId} totalLessons={totalLessons} />
+
 
       <button onClick={() => getEditorValue()}>getEditorValue</button>
       <div className='lesson-textbox'>

@@ -7,7 +7,6 @@ const LessonMarkdown = ({ lessonId, setLessonData }) => {
 
   useEffect(() => {
     // Update the parent component when lessonData changes
-    console.log("LessonData inside useEffect:", lessonData);
     setLessonData(lessonData);
   }, [lessonData, setLessonData]);
   
