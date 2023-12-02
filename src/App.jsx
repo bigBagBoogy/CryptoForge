@@ -5,9 +5,14 @@ import { Editor } from '@monaco-editor/react';
 import { LessonBuilder } from './LessonBuilder';
 import LessonMarkdown from './LessonMarkdown';
 
+
 function App() {
   const [lessonId, setLessonId] = useState('1-1'); // Initial lesson ID
-  const [file, setFile] = useState({
+  const [text, setText] = useState({
+    id: 'default',
+    value: '',
+  });
+  const [code, setCode] = useState({
     id: 'default',
     value: '',
   });
@@ -30,7 +35,7 @@ function App() {
     // console.log("Received lesson code:", solidityData);
   
     // Update the file state with the solidity data
-    setFile(solidityData);
+    setCode(solidityData);
   }
   
   // Function to handle lesson text data
@@ -38,7 +43,7 @@ function App() {
     console.log("Received lesson text:", markdownData);
   
     // Update the file state with the markdown data
-    setFile(markdownData);
+    setText(markdownData);
   }
 
   return (
@@ -48,8 +53,9 @@ function App() {
       <button onClick={() => setLessonId('1-3')}>1-3</button>
 
       <button onClick={() => getEditorValue()}>getEditorValue</button>
+      <div className='lesson-textbox'>
       <LessonMarkdown lessonId={lessonId} setLessonData={handleLessonText} />
-
+      </div>
       {/* Render the Editor component with the updated file state */}
       <div className='App' id='editor'>
         <Editor
@@ -57,9 +63,9 @@ function App() {
           width='100%'
           theme='vs-dark'
           onMount={handleEditorDidMount}
-          path={`file:///lesson-${file.id}.sol`}   // = virtual path  
+          path={`file:///lesson-${code.id}.sol`}   // = virtual path  
           defaultLanguage="sol"
-          defaultValue={file.value}
+          defaultValue={code.value}
         />        
       </div>
       {/* Render the LessonBuilder component and pass the lesson ID and handler function */}

@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import useLessonMarkdown from './useLessonMarkdown';
 
-const LessonMarkdown = ({ setLessonData }) => {
-  const lessonId = '1-1'; // Set the default lesson ID or get it from props if needed
+const LessonMarkdown = ({ lessonId, setLessonData }) => {
   const { loading, error, lessonData } = useLessonMarkdown(lessonId);
 
   useEffect(() => {
@@ -17,7 +16,11 @@ const LessonMarkdown = ({ setLessonData }) => {
     <div>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      {lessonData.value !== undefined && <ReactMarkdown>{lessonData.value}</ReactMarkdown>}
+      {lessonData.value !== undefined ? (
+        <ReactMarkdown>{lessonData.value}</ReactMarkdown>
+      ) : (
+        <p>No data available for the current lesson.</p>
+      )}
     </div>
   );
 };
