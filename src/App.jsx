@@ -33,14 +33,15 @@ function App() {
     editorRef.current = editor;
   }
 
-  function getEditorValue() {
-    const editor = editorRef.current.getValue();
+  function getEditorValue() {  // remove whitespace  ↓ ↓ ↓ ↓ ↓ ↓ 
+    const editor = editorRef.current.getValue().trim().replace(/\s+/g, ' ');
     console.log(editor);
-    console.log(lessonAnswer);
-    if (editor === lessonAnswer) {
-      alert("correct!")
+    const answerWithoutWhitespace = answer.value.trim().replace(/\s+/g, ' ');
+    console.log(answerWithoutWhitespace); 
+    if (editor == answerWithoutWhitespace) {
+      alert("correct!");
     } else {
-      alert("incorrect")
+      alert("incorrect");
     }
   }
 
@@ -80,8 +81,7 @@ function App() {
       </div>
       {/* Render the LessonCodeBuilder component and pass the lesson ID and handler function */}
       <LessonCodeBuilder lessonId={lessonId} setLessonData={handleLessonCode} />
-      <LessonAnswer lessonId={lessonId} setLessonData={handleLessonAnswer} />
-
+      <LessonAnswer lessonId={lessonId} setLessonData={handleLessonAnswer} setLessonAnswer={setAnswer} />
     </>
   );
 }
