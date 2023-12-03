@@ -1,6 +1,6 @@
-// LessonBuilder.jsx
+// LessonCodeBuilder.jsx
 import React, { useState, useEffect } from 'react';
-const LessonBuilder = ({ lessonId, setLessonData }) => {
+const LessonCodeBuilder = ({ lessonId, setLessonData }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [lessonData, setLocalLessonData] = useState({ id: '', value: '' });
@@ -47,5 +47,5 @@ const LessonBuilder = ({ lessonId, setLessonData }) => {
     );
   };
   
-  export { LessonBuilder };
+  export { LessonCodeBuilder };
   

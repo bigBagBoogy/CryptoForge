@@ -2,7 +2,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 import { Editor } from '@monaco-editor/react';
-import { LessonBuilder } from './LessonBuilder';
+import { LessonCodeBuilder } from './LessonCodeBuilder';
+import { LessonAnswer } from './LessonAnswer';
 import LessonMarkdown from './LessonMarkdown';
 import Navbar from './Navbar';
 
@@ -16,6 +17,11 @@ function App() {
     id: 'default',
     value: '',
   });
+  const [answer, setAnswer] = useState({
+    id: 'default',
+    value: '',
+  });
+  setAnswer
   const totalLessons = 3;
   const editorRef = useRef(null);
 
@@ -29,7 +35,13 @@ function App() {
 
   function getEditorValue() {
     const editor = editorRef.current.getValue();
-    alert(editor);
+    console.log(editor);
+    console.log(lessonAnswer);
+    if (editor === lessonAnswer) {
+      alert("correct!")
+    } else {
+      alert("incorrect")
+    }
   }
 
   function handleLessonCode(solidityData) {
@@ -39,15 +51,17 @@ function App() {
   // Function to handle lesson text data
   function handleLessonText(markdownData) {
     // Update the file state with the markdown data
-    setText(markdownData);
+    setText(markdownData);  
+  }
+  function handleLessonAnswer(answerData) {
+    // Update the file state with the markdown data
+    setAnswer(answerData);  
   }
 
   return (
     <>
       {/* Use the Navbar component and pass the setLessonId function */}
       <Navbar lessonId={lessonId} setLessonId={setLessonId} totalLessons={totalLessons} />
-
-
       <button onClick={() => getEditorValue()}>getEditorValue</button>
       <div className='lesson-textbox'>
       <LessonMarkdown lessonId={lessonId} setLessonData={handleLessonText} />
@@ -64,8 +78,10 @@ function App() {
           defaultValue={code.value}
         />        
       </div>
-      {/* Render the LessonBuilder component and pass the lesson ID and handler function */}
-      <LessonBuilder lessonId={lessonId} setLessonData={handleLessonCode} />
+      {/* Render the LessonCodeBuilder component and pass the lesson ID and handler function */}
+      <LessonCodeBuilder lessonId={lessonId} setLessonData={handleLessonCode} />
+      <LessonAnswer lessonId={lessonId} setLessonData={handleLessonAnswer} />
+
     </>
   );
 }
