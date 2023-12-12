@@ -1,5 +1,5 @@
 body {
-  background-color: darkslategray;
+  background-color: rgb(16, 17, 17);
   margin: 0;
   padding: 0;
   position: relative;
@@ -23,16 +23,7 @@ button {
   height: 100vh; /* 100% of the viewport height */
 }
 
-/* LessonTextBox.css */
-.lesson-textbox {
-  text-align: left;
-  margin-left: 3px;
-  max-width: 40vw;
-  max-height: 400px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
+
 p {
   color: white;
 }
@@ -40,12 +31,16 @@ p {
 
 .lesson-textbox {
   text-align: left;
-  max-width: 47vw;
-  max-height: 400px;
+  max-width: 43vw;
+  margin-left: 3%;
+  max-height: 500px;
   overflow-y: auto;
-  border: 2px solid #ccc;
   border-radius: 4px;
   padding: 10px;
+}
+.lesson-textbox ol {
+  /* Your custom styles for the first child of the ordered list */
+  color: white; /* Change this to your desired style */
 }
 
 .solidity-code {
