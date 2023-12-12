@@ -6,7 +6,7 @@ Setting: A mystical forge where smart contracts are forged.
 
 Dialogue:
 
-Meet Rusty, your trusty guide through the Foundry. Rusty is a sentient piece of code with a passion for forging and a fear of CryptoZombies.
+Meet Rusty, your trusty guide through the Foundry. Rusty is a robot smith with a passion for forging and a fear of CryptoZombies.
 Learn about Forge, the Ethereum testing framework. Rusty insists that proper weapons need thorough testing!
 ## Chapter 2: Unleashing the Zombies
 Setting: A graveyard filled with CryptoZombies.
