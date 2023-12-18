@@ -6,6 +6,7 @@ import { LessonCodeBuilder } from './LessonCodeBuilder';
 import { LessonAnswer } from './LessonAnswer';
 import LessonMarkdown from './LessonMarkdown';
 import Navbar from './Navbar';
+import CustomAlert from './CustomAlert';
 
 function App() {
   const [lessonId, setLessonId] = useState('1-1'); // Initial lesson ID
@@ -23,6 +24,8 @@ function App() {
   });
   setAnswer
   const totalLessons = 3;
+  const [isCustomAlertOpen, setIsCustomAlertOpen] = useState(false);
+  const [correctness, setCorrectness] = useState(false);
   const editorRef = useRef(null);
 
   // useEffect(() => {
@@ -34,16 +37,12 @@ function App() {
   }
 
   function getEditorValue() {  // remove whitespace  ↓ ↓ ↓ ↓ ↓ ↓ 
-    const editor = editorRef.current.getValue().trim().replace(/\s+/g, ' ');
-    console.log(editor);
-    const answerWithoutWhitespace = answer.value.trim().replace(/\s+/g, ' ');
-    console.log(answerWithoutWhitespace); 
-    if (editor == answerWithoutWhitespace) {
-      alert("correct!");
-    } else {
-      alert("incorrect");
+      const editor = editorRef.current.getValue().trim().replace(/\s+/g, '');
+      const answerWithoutWhitespace = answer.value.trim().replace(/\s+/g, '');
+      
+      setCorrectness(editor === answerWithoutWhitespace);
+      setIsCustomAlertOpen(true);
     }
-  }
 
   function handleLessonCode(solidityData) {
     // Update the file state with the solidity data
@@ -63,7 +62,13 @@ function App() {
     <>
       {/* Use the Navbar component and pass the setLessonId function */}
       <Navbar lessonId={lessonId} setLessonId={setLessonId} totalLessons={totalLessons} />
-      <button onClick={() => getEditorValue()}>getEditorValue</button>
+      <button onClick={() => getEditorValue()}>check answer</button>
+      <CustomAlert
+        isOpen={isCustomAlertOpen}
+        onClose={() => setIsCustomAlertOpen(false)}
+        message={correctness ? 'Correct!' : 'Incorrect!'}
+        correctness={correctness}
+      />
       <div className='lesson-textbox'>
       <LessonMarkdown lessonId={lessonId} setLessonData={handleLessonText} />
       </div>
